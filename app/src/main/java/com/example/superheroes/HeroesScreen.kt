@@ -1,11 +1,10 @@
 package com.example.superheroes
 
-import androidx.annotation.OptIn
+import android.content.res.Configuration
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.runtime.Composable
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.MutableTransitionState
-import androidx.compose.animation.core.Spring.DampingRatioHighBouncy
 import androidx.compose.animation.core.Spring.DampingRatioLowBouncy
 import androidx.compose.animation.core.Spring.StiffnessVeryLow
 import androidx.compose.animation.core.spring
@@ -36,12 +35,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.superheroes.model.Hero
+import com.example.superheroes.ui.theme.SuperheroesTheme
 
 
-@kotlin.OptIn(ExperimentalAnimationApi::class)
-@OptIn
+@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun HeroList(
     heroes: List<Hero>,
@@ -70,7 +70,7 @@ fun HeroList(
                                     stiffness = StiffnessVeryLow,
                                     dampingRatio = DampingRatioLowBouncy
                                 ),
-                                initialOffsetY = {it * (index+1)}
+                                initialOffsetY = { it * (index + 1) }
                             )
                         )
                 )
@@ -118,5 +118,19 @@ fun HeroListItem(
                 contentScale = ContentScale.FillWidth
             )
         }
+    }
+}
+
+@Preview("Light Theme")
+@Preview("Dark Theme", uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+fun HeroPreview(){
+    val hero = Hero(
+        R.string.hero1,
+        R.string.description1,
+        R.drawable.android_superhero1
+    )
+    SuperheroesTheme{
+        HeroListItem(hero = hero)
     }
 }
