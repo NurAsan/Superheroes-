@@ -43,42 +43,23 @@ import com.example.superheroes.model.HeroesRepository
 import com.example.superheroes.ui.theme.SuperheroesTheme
 
 
-@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun HeroList(
     heroes: List<Hero>,
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(0.dp),
 ){
-    val visibileState = remember {
-        MutableTransitionState(false).apply {
-            targetState = true
-        }
-    }
-    AnimatedVisibility(
-        visibleState = visibileState,
-        exit = fadeOut(),
-        modifier = modifier
-    ){
         LazyColumn(contentPadding = contentPadding ){
             itemsIndexed(heroes){ index, hero ->
                 HeroListItem(
                     hero = hero,
                     modifier = Modifier
                         .padding(vertical = 8.dp, horizontal = 16.dp)
-                        .animateEnterExit(
-                            enter = slideInVertically(
-                                animationSpec = spring(
-                                    stiffness = StiffnessVeryLow,
-                                    dampingRatio = DampingRatioLowBouncy
-                                ),
-                                initialOffsetY = { it * (index + 1) }
-                            )
-                        )
+
                 )
             }
         }
-    }
+
 }
 
 @Composable
@@ -122,6 +103,7 @@ fun HeroListItem(
         }
     }
 }
+
 
 @Preview("Light Theme")
 @Preview("Dark Theme", uiMode = Configuration.UI_MODE_NIGHT_YES)
